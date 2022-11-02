@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 interface UserType {
-  id: string;
+  _id: string;
   name: string;
   email: string;
 }
@@ -18,11 +18,11 @@ function App() {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await fetch("http://localhost:5000/users");
-    const data = await res.json();
+    const res = await fetch("http://localhost:5000/users/all");
+    const { data } = await res.json();
     setUsers(data);
   };
-
+  console.log(users);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const email = emailRef.current?.value;
@@ -70,7 +70,7 @@ function App() {
       </form>
       <div>
         {users.map((user) => (
-          <div className="text-center" key={user.id}>
+          <div className="text-center" key={user._id}>
             <span className="mr-2">{user.name}</span>
             <span>{user.email}</span>
           </div>
